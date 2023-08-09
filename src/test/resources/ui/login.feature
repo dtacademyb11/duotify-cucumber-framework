@@ -5,7 +5,7 @@ Feature: Login feature
 
 
   @login
-  @DM-23
+  @DM-23 @testing_GA
   Scenario: Login with valid credentials
     When I enter the valid credentials
     Then I should be able to login
