@@ -36,12 +36,13 @@ jobs:
       - name: Run smoke tests
         run: mvn test -D cucumber.filter.tags="@smoke" -D browser=chromeheadless
 
-#      - name: Upload Test Results
-#        if: always()
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Smoke Test Results HTML File
-#          path: target/cucumber-report/report.html
+      - name: Generate report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Results HTML File
+          path: target/cucumber-report/report.html
+
 
 
 
