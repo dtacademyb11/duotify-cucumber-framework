@@ -34,7 +34,7 @@ jobs:
 #          sudo apt-get -y install google-chrome-stable
 
       - name: Run smoke tests
-        run: mvn test -D cucumber.filter.tags="@smoke" -Dbrowser=chromeheadless
+        run: mvn test -D cucumber.filter.tags="@smoke" -D browser=chromeheadless
 
 #      - name: Upload Test Results
 #        if: always()
