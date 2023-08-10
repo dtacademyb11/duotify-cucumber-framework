@@ -32,7 +32,7 @@ Feature: Login feature
     When I enter username as "duotech2024" and password as "duotech2024"
     Then I should not be able to login
 
-    @login
+    @login @branchTests
   Scenario Outline: Login with invalid credentials parameters
     When I enter username as "<username>" and password as "<password>"
     Then I should not be able to login
