@@ -5,7 +5,7 @@ Feature: Login feature
 
 
   @login
-  @DM-23 @testing_GA
+  @DM-23 @smoke
   Scenario: Login with valid credentials
     When I enter the valid credentials
     Then I should be able to login
@@ -22,7 +22,7 @@ Feature: Login feature
     Then I should see an error message
 
 
-
+@smoke
   Scenario: Login with valid credentials parameters
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
