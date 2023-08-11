@@ -40,13 +40,13 @@ jobs:
             firefox-version: '116.0.2'
 
         - name: Run Smoke Tests in headless Chrome
-          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=chromeheadless -Dcucumber.options="--plugin html:target/cucumber-report/chrome-report.html"
+          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=chromeheadless -Dcucumber.plugin="html:target/cucumber-report/chrome-report.html"
 
         - name: Run Smoke Tests in headless Edge
-          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=edgeheadless -Dcucumber.options="--plugin html:target/cucumber-report/edge-report.html"
+          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=edgeheadless -Dcucumber.plugin="html:target/cucumber-report/edge-report.html"
 
         - name: Run Smoke Tests in headless Firefox
-          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=firefoxheadless -Dcucumber.options="--plugin html:target/cucumber-report/firefox-report.html"
+          run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=firefoxheadless -Dcucumber.plugin="html:target/cucumber-report/firefox-report.html"
 
         - name: Generate Report
           if: always()
