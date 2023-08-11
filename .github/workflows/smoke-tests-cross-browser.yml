@@ -52,5 +52,5 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v3
           with:
-              name: Report File
-              path: target/cucumber-report/*.html
+              name: Report Files
+              path: target/cucumber-report
