@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
           glue = "stepDefinitions", // the path where step definitions are located
           plugin = {
                "pretty", //for more detailed console output
-//               "html:target/cucumber-report/report.html" // generates a built in html report
+               "html:target/cucumber-report/report.html" // generates a built in html report
           },
           publish = true //generates a cloud based report
 //          ,stepNotifications = true // displays detailed step results
