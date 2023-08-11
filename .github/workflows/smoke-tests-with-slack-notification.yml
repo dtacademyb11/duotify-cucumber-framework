@@ -1,5 +1,5 @@
-name: Main branch smoke tests
-run-name: Running smoke tests
+name: Main branch smoke tests with Slack notification
+run-name: Running smoke tests with Slack notification
 on:
   push:
    branches:

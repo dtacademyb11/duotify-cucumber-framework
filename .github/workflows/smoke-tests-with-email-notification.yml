@@ -1,5 +1,5 @@
-name: Main branch smoke tests
-run-name: Running smoke tests
+name: Main branch smoke tests with email notification
+run-name: Running smoke tests with email notification
 on:
   push:
    branches:
