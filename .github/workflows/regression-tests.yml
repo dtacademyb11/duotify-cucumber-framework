@@ -1,8 +1,13 @@
 name: Main branch regression tests
 run-name: Running nightly regression tests
 on:
+  push:
+    branches:
+      - main
+#  this workflow runs on push event and also on schedule
   schedule:
     - cron: '0/5 * * * *' # runs every 5 minutes
+
 #    - cron: '0 0 * * 1-5'
 #      runs at midnight from Mon-Fri
 
