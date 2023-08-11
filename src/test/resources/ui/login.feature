@@ -24,7 +24,7 @@ Feature: Login feature
 
   @smoke
   Scenario: Login with valid credentials parameters
-    When I enter username as "duotech2023" and password as "duotech"
+    When I enter username as "duotech2023" and password as "duotech3432"
     Then I should be able to login
 
   @smoke @branchTests
