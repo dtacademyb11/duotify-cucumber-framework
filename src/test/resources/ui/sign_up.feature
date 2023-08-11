@@ -9,13 +9,13 @@ Feature: Sign up feature
 
 
 
-   @login
+   @login @branchTests
   Scenario: Sign up with valid info
 
     When I fill up the fields with valid info and click sign up
     Then I should be able to sign up
 
-  @valid
+  @valid @branchTests
   Scenario: Sign up with valid info 2
 
     When I fill up the fields with valid info and click sign up
