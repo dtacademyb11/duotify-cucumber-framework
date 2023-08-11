@@ -37,7 +37,7 @@ jobs:
         - name: Setup Firefox Browser
           uses: browser-actions/setup-firefox@v1
           with:
-            firefox-version: 'stable'
+            firefox-version: '116.0.2'
 
         - name: Run Smoke Tests in headless Chrome
           run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=chromeheadless
