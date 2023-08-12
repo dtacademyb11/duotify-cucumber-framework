@@ -56,4 +56,4 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
               name: Report Files
-              path: target/cucumber-report
+              path: target/cucumber-report  # name of the folder
