@@ -3,12 +3,15 @@ package utils.misc;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Map;
 import java.util.Random;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 
 public class RestAssuredDemo {
 
@@ -38,7 +41,9 @@ public class RestAssuredDemo {
 
                 then(). log().all().
                      assertThat().
-                     statusCode(200);
+                     statusCode((200)).
+                       time(lessThan(2000L)); // verify basic response time
+
 
         //Syntax with each section divided and stored in their own objects
 
@@ -148,7 +153,7 @@ public class RestAssuredDemo {
                 statusCode(201).
                 header("Content-Type", "application/json; charset=utf-8");
 
-//
+//    Delete the created email
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
@@ -170,6 +175,26 @@ public class RestAssuredDemo {
 
 
 
+    @Test
+    public void basicBodyValidation() {
+
+
+        String username = "DrGonzo21";
+       Map result =  given().
+                header("Accept", "application/vnd.github+json").
+                pathParam("username", username ).
+                when().log().all().
+                get("/users/{username}").
+
+                then().log().all().
+                assertThat().
+                statusCode((200)).
+                body("login", equalTo(username)).extract().as(Map.class);  // a dependency will need to be added for this to work
+
+                System.out.println(result);
+
+
+    }
 
 
 }
