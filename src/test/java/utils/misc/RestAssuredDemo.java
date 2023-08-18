@@ -1,12 +1,17 @@
 package utils.misc;
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.ConfigReader;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -73,7 +78,7 @@ public class RestAssuredDemo {
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
-                header("Authorization", "Bearer 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").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
                 header("Content-Type", "application/json").
                 body("{\n" +
                 "    \"emails\" : [\""+email+"\"]\n" +
@@ -91,7 +96,7 @@ public class RestAssuredDemo {
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
-                header("Authorization", "Bearer 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").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
                 header("Content-Type", "application/json").
                 body("{\n" +
                         "    \"emails\" : [\""+email+"\"]\n" +
@@ -115,7 +120,7 @@ public class RestAssuredDemo {
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
-                header("Authorization", "Bearer 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").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
                 header("Content-Type", "application/json").
                 body("{\n" +
                         "    \"visibility\" : \"public\"\n" +
@@ -140,7 +145,7 @@ public class RestAssuredDemo {
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
-                header("Authorization", "Bearer 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").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
                 header("Content-Type", "application/json").
                 body("{\n" +
                         "    \"emails\" : [\""+email+"\"]\n" +
@@ -157,7 +162,7 @@ public class RestAssuredDemo {
         given().
                 header("Accept", "application/vnd.github+json").
                 header("X-GitHub-Api-Version", "2022-11-28").
-                header("Authorization", "Bearer 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").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
                 header("Content-Type", "application/json").
                 body("{\n" +
                         "    \"emails\" : [\""+email+"\"]\n" +
@@ -176,22 +181,192 @@ public class RestAssuredDemo {
 
 
     @Test
-    public void basicBodyValidation() {
+    public void basicBodyValidationUsingPathMethod() {
 
 
         String username = "DrGonzo21";
-       Map result =  given().
+     Response response =   given().
                 header("Accept", "application/vnd.github+json").
-                pathParam("username", username ).
+                pathParam("username", username).
                 when().log().all().
                 get("/users/{username}").
 
                 then().log().all().
                 assertThat().
                 statusCode((200)).
-                body("login", equalTo(username)).extract().as(Map.class);  // a dependency will need to be added for this to work
+                body("login", equalTo(username)).extract().response();
 
-                System.out.println(result);
+              String login = response.path("login");
+              System.out.println(login);
+
+            Map<String, Object> entireResponse = response.path("$");
+            System.out.println(entireResponse);
+
+
+
+
+
+
+
+
+    }
+
+    @Test
+    public void basicBodyValidationUsingJsonPath() {
+
+
+        String username = "DrGonzo21";
+        JsonPath responseAsJsonPath =   given().
+                header("Accept", "application/vnd.github+json").
+                pathParam("username", username).
+                when().log().all().
+                get("/users/{username}").
+
+                then().log().all().
+                assertThat().
+                statusCode((200)).
+                body("login", equalTo(username)).extract().jsonPath();
+
+
+        String login = responseAsJsonPath.getString("login");
+        System.out.println(login);
+
+        Map<String, Object> entireResponse = responseAsJsonPath.getMap("$");// $ represents the root element
+
+        System.out.println(entireResponse);
+
+        System.out.println(entireResponse.keySet());
+
+
+    }
+
+    @Test
+    public void basicBodyValidationPath() {
+
+
+        Response response = given().
+                header("Accept", "application/vnd.github+json").
+                header("X-GitHub-Api-Version", "2022-11-28").
+                header("Authorization", "Bearer " + ConfigReader.getProperty("api.token")).
+
+                when().log().all().
+                get("/user").
+
+                then().log().all().
+                assertThat().
+                statusCode((200)).
+                body("plan.name", equalTo("free")).
+                body("login", equalTo("dtacademyb11")).
+                body("login", instanceOf(String.class)).
+                body("id", equalTo(134797000)).
+                body("id", instanceOf(Integer.class)).
+                body("site_admin", instanceOf(Boolean.class)).
+                body("twitter_username", nullValue()).
+                body("login", notNullValue()).
+                body("plan", hasKey("name")).
+                body("plan", hasKey("name")).
+                body("$", hasKey("id")).
+                body("$", hasValue(134797000)).
+                body("$", hasEntry("type" , "User")).
+                body("$", not(equalTo(Collections.EMPTY_MAP))).
+                body("plan", allOf(hasKey("name"),hasKey("space"),hasKey("collaborators"),hasKey("private_repos"))).
+                time(lessThan(1000L)).
+                extract().response();
+
+
+        Map<String, Object> plan = response.path("plan");
+
+        System.out.println(plan);
+        System.out.println(plan.keySet());
+
+        String name = response.path("plan.name");
+
+        Assert.assertEquals("free", name);
+
+
+
+
+    }
+
+    @Test
+    public void basicBodyValidationResponseAsList() {
+
+
+        Response response = given().
+                header("Accept", "application/vnd.github+json").
+
+
+                when().log().all().
+                get("/users").
+
+                then().log().all().
+                assertThat().
+                statusCode((200)).
+                body("$", hasSize(30)). // checks if the collection has certain size
+                extract().response();
+
+
+        List<Map<String,Object>> list = response.path("$");  // returns the root element which is a list, $ or empty string ->  root element
+
+        System.out.println(list);
+
+        Map<String, Object> firstElement = response.path("[0]");  // returns the first element(json) of the list
+
+        System.out.println(firstElement);
+
+        String login = response.path("[0].login");  // returns the login key's value of first element(json)
+
+        System.out.println(login);
+
+        List<String> logins = response.path("login");  // returns the login values of all json objects
+
+        System.out.println(logins);
+
+
+
+
+
+
+    }
+
+    @Test
+    public void basicBodyValidationComplexJson() {
+
+
+        Response response = given().
+                header("Accept", "application/vnd.github+json").
+                 pathParam("username", "dtacademyb11").
+
+                when().log().all().
+                get("users/{username}/events").
+
+                then().log().all().
+                assertThat().
+                statusCode((200)).
+                body("[0].actor.login", equalTo("dtacademyb11")).
+//                body("payload.push_id", not(hasItem(nullValue()))).
+                body("type", hasItem("PushEvent")).
+                body("type.", hasItems("PushEvent","PullRequestEvent")).
+                body("[3].payload.pull_request.assignees", empty()).
+                body("actor.login", everyItem(startsWith("dt"))).
+                body("actor.login", everyItem(containsString("academy"))).
+//                body("type", contains("PushEvent","PullRequestEvent")).
+
+                extract().response();
+
+          String loginNested = response.path("[0].actor.login");
+        System.out.println(loginNested);
+
+
+        System.out.println( (List)response.path("actor.login"));
+
+        System.out.println( (String)response.path("[0].payload.commits[0].author.name"));
+
+        List<Long> ids = response.path("payload.push_id");
+        Assert.assertTrue(ids.contains(null));
+
+        System.out.println(ids);
+
 
 
     }

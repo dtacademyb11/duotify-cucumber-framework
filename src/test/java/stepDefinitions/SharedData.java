@@ -1,11 +1,16 @@
 package stepDefinitions;
 
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static io.restassured.RestAssured.given;
 
 @Data
 public class SharedData {
@@ -28,6 +33,16 @@ public class SharedData {
     private String album;
 
     private LocalDateTime timestamp;
+
+
+     static {
+         RestAssured.baseURI = "https://api.github.com";
+     }
+     private RequestSpecification requestSpecification = given();
+     private Response response;
+
+
+
 
 
 
