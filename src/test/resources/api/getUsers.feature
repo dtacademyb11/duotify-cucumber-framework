@@ -14,7 +14,7 @@ Feature: GET /users API endpoint features
     And the response time should be less than 1000 ms
     And the users amount should be 2901
     And the response should contain a list of all users with the following fields
-      | idcdsbn        |
+      | id         |
       | username   |
       | firstName  |
       | lastName   |
