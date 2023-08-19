@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.db;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.AlbumPage;
 import pages.Homepage;
+import stepDefinitions.SharedData;
 import utils.DBUtils;
 import utils.SeleniumUtils;
 

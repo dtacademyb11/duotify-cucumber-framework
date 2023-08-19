@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.ui;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.SignInPage;
 import pages.SignUpPage;
+import stepDefinitions.SharedData;
 import utils.DBUtils;
 import utils.Driver;
 

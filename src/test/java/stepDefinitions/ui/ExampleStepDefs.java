@@ -1,9 +1,10 @@
-package stepDefinitions;
+package stepDefinitions.ui;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.an.E;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import stepDefinitions.SharedData;
 
 public class ExampleStepDefs {
 

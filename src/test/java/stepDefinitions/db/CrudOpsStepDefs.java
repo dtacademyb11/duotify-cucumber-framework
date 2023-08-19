@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.db;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
 import pages.*;
+import stepDefinitions.SharedData;
 import utils.DBUtils;
 import utils.SeleniumUtils;
 

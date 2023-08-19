@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.ui;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
@@ -7,6 +7,7 @@ import org.junit.Assert;
 import pages.Homepage;
 import pages.SettingsPage;
 import pages.UpdateDetailsPage;
+import stepDefinitions.SharedData;
 
 public class UpdateEmailStepDefs {
 

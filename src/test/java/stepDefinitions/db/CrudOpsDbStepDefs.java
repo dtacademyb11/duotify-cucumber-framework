@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.db;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
@@ -9,6 +9,7 @@ import org.junit.Assert;
 import pages.Homepage;
 import pages.SettingsPage;
 import pages.UpdateDetailsPage;
+import stepDefinitions.SharedData;
 import utils.DBUtils;
 
 import java.sql.SQLException;

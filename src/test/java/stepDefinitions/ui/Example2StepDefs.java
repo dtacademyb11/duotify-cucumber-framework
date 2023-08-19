@@ -1,6 +1,7 @@
-package stepDefinitions;
+package stepDefinitions.ui;
 
 import io.cucumber.java.en.Then;
+import stepDefinitions.SharedData;
 
 public class Example2StepDefs {
 
