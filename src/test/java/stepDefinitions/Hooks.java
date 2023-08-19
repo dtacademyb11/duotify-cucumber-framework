@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import io.cucumber.java.*;
+import io.restassured.RestAssured;
 import org.junit.BeforeClass;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -25,6 +26,12 @@ public class Hooks {
     @Before("@DB")
     public void setupScenarioForDB(){
         DBUtils.createConnection();
+
+    }
+
+    @Before("@API")
+    public void setupScenarioForAPI(){
+        RestAssured.baseURI = "https://api.github.com";
 
     }
 

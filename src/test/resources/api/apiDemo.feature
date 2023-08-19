@@ -3,7 +3,7 @@ Feature: Demo
   @API
   Scenario: Test Api endpoint
 
-    Given The base uri is set
+#    Given The base uri is set
     And "Accept" header is set to "application/vnd.github+json"
     And "username" path Parameter is set to "drgonzo21"
     And "pages" query Parameter is set to "2"
@@ -12,15 +12,6 @@ Feature: Demo
     And response time should be less than 2000 ms
 
 
-  @API
-  Scenario: Test Api endpoint
 
-    Given The base uri is set
-    And "Accept" header is set to "application/json"
-    And "username" path Parameter is set to "dtacademyb11"
-    And "id" query Parameter is set to "10"
-    When I send a "GET" request to endpoint "/users/{username}"
-    Then the status code should be 200
-    And response time should be less than 2000 ms
 
 

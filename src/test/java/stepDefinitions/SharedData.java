@@ -35,11 +35,8 @@ public class SharedData {
     private LocalDateTime timestamp;
 
 
-     static {
-         RestAssured.baseURI = "https://api.github.com";
-     }
-     private RequestSpecification requestSpecification = given();
-     private Response response;
+    private RequestSpecification requestSpecification = given();
+    private Response response;
 
 
 

@@ -20,15 +20,14 @@ public class ApiDemoStepDefs {
     }
 
 
-    @Given("The base uri is set")
-    public void the_base_uri_is_set() {
 
-    }
 
 
     @Given("{string} header is set to {string}")
     public void header_is_set_to(String key, String value) {
-      sharedData.getRequestSpecification().
+        RestAssured.baseURI = "https://api.github.com";
+
+        sharedData.getRequestSpecification().
               header(key, value);
 
     }
