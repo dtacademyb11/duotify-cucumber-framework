@@ -1,5 +1,6 @@
 package stepDefinitions.api;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,13 +33,24 @@ public class GetUsersStepDefs {
                                 queryParam("api_key", ConfigReader.getProperty("api.key.duotify"));
 
     }
-    @Given("the {string} header is set to {string}")
+    @Given("the request {string} header is set to {string}")
     public void the_header_is_set_to(String key, String value) {
         sharedData.getRequestSpecification().header(key, value);
     }
     @When("I send a {string} request to the endpoint {string}")
     public void i_send_a_request_to_the_endpoint(String method, String endpoint) {
-       sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().get(endpoint));
+        switch (method) {
+            case "GET" -> sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().get(endpoint));
+            case "POST" ->
+                    sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().post(endpoint));
+            case "PUT" -> sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().put(endpoint));
+            case "PATCH" ->
+                    sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().patch(endpoint));
+            case "DELETE" ->
+                    sharedData.setResponse(sharedData.getRequestSpecification().when().log().all().delete(endpoint));
+            default -> throw new IllegalArgumentException(method + ": This request method is invalid.");
+        }
+
     }
     @Then("the response log should be displayed")
     public void the_response_log_should_be_displayed() {
@@ -79,4 +91,18 @@ public class GetUsersStepDefs {
         }
 
     }
+
+    @Then("the response body should have {string} field with value {string}")
+    public void theResponseBodyShouldHaveFieldWithValue(String key, String value) {
+        sharedData.getResponse().then().body(key, equalTo(value));
+    }
+
+    @Given("the request is not authenticated with a valid API key")
+    public void theRequestIsNotAuthenticatedWithAValidAPIKey() {
+
+        sharedData.getRequestSpecification().
+                queryParam("api_key", "invalidKey");
+    }
+
+
 }

@@ -2,11 +2,11 @@
 @API
 Feature: GET /users API endpoint features
 
-  @api_test
+
   Scenario: Retrieve all users successfully
 
     Given the request is authenticated with a valid API key
-    And the "Content-type" header is set to "application/json"
+    And the request "Content-type" header is set to "application/json"
     When I send a "GET" request to the endpoint "/users"
     Then the response log should be displayed
     Then the response status code should be 200
@@ -24,3 +24,21 @@ Feature: GET /users API endpoint features
       | profilePic |
 
 
+    Scenario: Invalid api key
+
+      Given the request is not authenticated with a valid API key
+      And the request "Content-type" header is set to "application/json"
+      When I send a "GET" request to the endpoint "/users"
+      Then the response log should be displayed
+      Then the response status code should be 401
+      Then the response body should have "message" field with value "Invalid or missing API Key. API key must be provided as an 'api_key' query parameter."
+
+  @api_test
+  Scenario: Invalid method type
+
+    Given the request is authenticated with a valid API key
+    And the request "Content-type" header is set to "application/json"
+    When I send a "POST" request to the endpoint "/users"
+    Then the response log should be displayed
+    Then the response status code should be 405
+    Then the response body should have "message" field with value "Invalid request method"
