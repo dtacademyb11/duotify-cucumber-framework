@@ -33,7 +33,7 @@ Feature: GET /users API endpoint features
       Then the response status code should be 401
       Then the response body should have "message" field with value "Invalid or missing API Key. API key must be provided as an 'api_key' query parameter."
 
-  @api_test
+
   Scenario: Invalid method type
 
     Given the request is authenticated with a valid API key

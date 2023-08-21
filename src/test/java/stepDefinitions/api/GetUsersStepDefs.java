@@ -36,6 +36,7 @@ public class GetUsersStepDefs {
     @Given("the request {string} header is set to {string}")
     public void the_header_is_set_to(String key, String value) {
         sharedData.getRequestSpecification().header(key, value);
+
     }
     @When("I send a {string} request to the endpoint {string}")
     public void i_send_a_request_to_the_endpoint(String method, String endpoint) {
@@ -103,6 +104,7 @@ public class GetUsersStepDefs {
         sharedData.getRequestSpecification().
                 queryParam("api_key", "invalidKey");
     }
+
 
 
 }
