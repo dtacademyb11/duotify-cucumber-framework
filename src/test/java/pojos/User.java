@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data // getters, setters, toString, equals, hashcode
 @AllArgsConstructor  //adds all args
 @NoArgsConstructor // no args
-@Builder  // lets you create objects using Builder pattern easily
+@Builder  // lets you create objects using Builder pattern easily without using setters
 @JsonInclude(Include.NON_NULL) // to generate a dynamic json for initialized fields only, omits null fields
 public class User {
 
