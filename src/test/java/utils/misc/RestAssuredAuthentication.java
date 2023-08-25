@@ -102,6 +102,8 @@ public class RestAssuredAuthentication {
                 then().log().all().statusCode(200).extract().path("playlists.name");
 
         System.out.println(listOfPlaylists);
+        //
+        //
 
 
     }
