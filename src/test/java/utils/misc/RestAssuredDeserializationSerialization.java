@@ -1,11 +1,8 @@
 package utils.misc;
 
 import com.github.javafaker.Faker;
-import io.cucumber.java.it.Ma;
-import io.cucumber.java.sl.In;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
-import io.restassured.mapper.ObjectMapperType;
 import org.junit.Assert;
 import org.junit.Test;
 import pojos.PostUserResponse;
