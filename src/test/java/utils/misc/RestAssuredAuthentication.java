@@ -109,4 +109,33 @@ public class RestAssuredAuthentication {
     }
 
 
+    @Test
+    public void Oauth2() {
+
+
+        // Obtain the code
+        //obtain the access token from the authorization server
+
+      String token =   given().
+                queryParam("client_id", "e5e0a681aac72c70b39e").
+                queryParam("client_secret", "f00f0b700dbe46150bd5c7b35840dd3a94acd33a").
+                queryParam("code", "11360500a31053943cc3"). // temporary code needs to be obtained every time
+                header("Accept", "application/json").
+         when().log().all().
+                post("https://github.com/login/oauth/access_token").
+
+         then().log().all().
+                statusCode(200).extract().path("access_token");
+
+
+        // Sent a request to the API endpoint using the access token
+
+           given().
+                   header("Authorization", "Bearer " + token).
+           when().log().all().
+                   get("https://api.github.com/user").
+                then().log().all().statusCode(200);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package stepDefinitions.api;
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pojos.User;
@@ -53,4 +54,24 @@ public class PostUserStepDefs {
     }
 
 
+    @And("the request body is set to the random values")
+    public void theRequestBodyIsSetToTheRandomValues() {
+
+        Faker faker = new Faker();
+        sharedData.getRequestSpecification().body(
+                User.builder().
+                        email(faker.internet().emailAddress()).
+                        password(faker.internet().password()).
+                        firstName(faker.name().firstName()).
+                        lastName(faker.name().lastName()).
+                        username(faker.name().username()).build()
+        );
+    }
+
+    @And("the user id is stored")
+    public void theUserIdIsStored() {
+
+        Integer userId = sharedData.getResponse().path("user_id");
+        sharedData.setUserIdFromPostRequest(userId);
+    }
 }

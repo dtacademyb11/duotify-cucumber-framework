@@ -22,7 +22,7 @@ Feature: PUT /user API endpoint features
     And the response body should have "message" field with value "User updated successfully"
 
 
-  @api_test
+
   Scenario: Update the user entry negative
 
     Given the request is authenticated with a valid API key
